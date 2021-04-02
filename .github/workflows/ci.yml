@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Checkout submodules
-        uses: textbook/git-checkout-submodule-action@master
+      - name: Checkout submodules        
+        uses: nokchax/infra-subway-config@main
         with:
           remote: true
       - name: Set up JDK 1.11
