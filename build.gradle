@@ -47,9 +47,9 @@ test {
 	useJUnitPlatform()
 }
 
-flyway {
-	url = 'jdbc:mysql://localhost:13306/archive?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8'
-	user = 'user' // gradle 내에서의 암호는 어떻게 관리해야하는가..
-	password = 'password'
-	schemas = 'migration'
-}
+//flyway {
+//	url = 'jdbc:mysql://localhost:13306/archive?serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8'
+//	user = 'user' // gradle 내에서의 암호는 어떻게 관리해야하는가..
+//	password = 'password'
+//	schemas = 'migration'
+//}
