@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Checkout submodules
-        uses: nokchax/infra-subway-config@main
+        uses: nokchax/infra-subway@main
 
       - name: Set up JDK 1.11
         uses: actions/setup-java@v1
