@@ -37,10 +37,15 @@ public class MapService {
         List<Line> lines = lineService.findLines();
         Station sourceStation = stationService.findById(source);
         Station targetStation = stationService.findById(target);
-        SubwayPath subwayPath = pathService.findPath(lines, sourceStation, targetStation);
+        try {
+            SubwayPath subwayPath = pathService.findPath(lines, sourceStation, targetStation);
 
-        fileLogger.info("Find shortest path result from {} -> to {}: {}", source, target, subwayPath);
-        jsonLogger.info("Find shortest path result from {} -> to {}: {}", source, target, subwayPath);
-        return PathResponseAssembler.assemble(subwayPath);
+            fileLogger.info("Find shortest path result from {} -> to {}: {}", source, target, subwayPath);
+            jsonLogger.info("Find shortest path result from {} -> to {}: {}", source, target, subwayPath);
+            return PathResponseAssembler.assemble(subwayPath);
+        } catch (Exception e) {
+            fileLogger.error("Fail to find shortest path: {}", e.getMessage());
+            throw e;
+        }
     }
 }
