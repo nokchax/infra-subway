@@ -1,1 +1,0 @@
-2021-04-03 16:09:46.724 http-nio-8080-exec-6 INFO  file - Find shortest path result from 2 -> to 3: SubwayPath{sectionEdges=[SectionEdge{section=nextstep.subway.line.domain.Section@5a6ec08b, lineId=2}], stations=[Station{id=2, name='강남역'}->Station{id=3, name='교대역'}]}

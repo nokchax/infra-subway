@@ -19,6 +19,7 @@ import java.util.List;
 public class MapService {
     private static final Logger log = LoggerFactory.getLogger(MapService.class);
     private static final Logger fileLogger = LoggerFactory.getLogger("file");
+    private static final Logger jsonLogger = LoggerFactory.getLogger("json");
 
     private LineService lineService;
     private StationService stationService;
@@ -32,11 +33,14 @@ public class MapService {
 
     public PathResponse findPath(Long source, Long target) {
         log.info("Find shortest path : from {} -> to {}", source, target);
+
         List<Line> lines = lineService.findLines();
         Station sourceStation = stationService.findById(source);
         Station targetStation = stationService.findById(target);
         SubwayPath subwayPath = pathService.findPath(lines, sourceStation, targetStation);
+
         fileLogger.info("Find shortest path result from {} -> to {}: {}", source, target, subwayPath);
+        jsonLogger.info("Find shortest path result from {} -> to {}: {}", source, target, subwayPath);
         return PathResponseAssembler.assemble(subwayPath);
     }
 }
