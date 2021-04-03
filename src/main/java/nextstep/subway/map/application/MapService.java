@@ -7,6 +7,8 @@ import nextstep.subway.map.dto.PathResponse;
 import nextstep.subway.map.dto.PathResponseAssembler;
 import nextstep.subway.station.application.StationService;
 import nextstep.subway.station.domain.Station;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,9 @@ import java.util.List;
 @Service
 @Transactional
 public class MapService {
+    private static final Logger log = LoggerFactory.getLogger(MapService.class);
+    private static final Logger fileLogger = LoggerFactory.getLogger("file");
+
     private LineService lineService;
     private StationService stationService;
     private PathService pathService;
@@ -26,11 +31,12 @@ public class MapService {
     }
 
     public PathResponse findPath(Long source, Long target) {
+        log.info("Find shortest path : from {} -> to {}", source, target);
         List<Line> lines = lineService.findLines();
         Station sourceStation = stationService.findById(source);
         Station targetStation = stationService.findById(target);
         SubwayPath subwayPath = pathService.findPath(lines, sourceStation, targetStation);
-
+        fileLogger.info("Find shortest path result from {} -> to {}: {}", source, target, subwayPath);
         return PathResponseAssembler.assemble(subwayPath);
     }
 }

@@ -3,6 +3,7 @@ package nextstep.subway.map.domain;
 import nextstep.subway.station.domain.Station;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SubwayPath {
     private List<SectionEdge> sectionEdges;
@@ -23,5 +24,17 @@ public class SubwayPath {
 
     public int calculateDistance() {
         return sectionEdges.stream().mapToInt(it -> it.getSection().getDistance()).sum();
+    }
+
+    @Override
+    public String toString() {
+        return "SubwayPath{" +
+                "sectionEdges=" + sectionEdges.stream()
+                .map(SectionEdge::toString)
+                .collect(Collectors.joining("->", "[", "]")) +
+                ", stations=" + stations.stream()
+                .map(Station::toString)
+                .collect(Collectors.joining("->", "[", "]")) +
+                '}';
     }
 }
