@@ -44,7 +44,7 @@ public class MapService {
             jsonLogger.info("Find shortest path result from {} -> to {}: {}", source, target, subwayPath);
             return PathResponseAssembler.assemble(subwayPath);
         } catch (Exception e) {
-            fileLogger.error("Fail to find shortest path: {}", e.getMessage());
+            fileLogger.error("Fail to find shortest path from [{}] -> to [{}]: {}", sourceStation, targetStation, e.getMessage());
             throw e;
         }
     }
