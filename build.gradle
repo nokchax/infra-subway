@@ -54,6 +54,9 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'junit'
 	}
+
+    // redis
+	implementation('org.springframework.boot:spring-boot-starter-data-redis')
 }
 
 test {
