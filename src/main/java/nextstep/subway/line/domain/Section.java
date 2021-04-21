@@ -1,11 +1,14 @@
 package nextstep.subway.line.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import nextstep.subway.station.domain.Station;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Section implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,6 +74,26 @@ public class Section implements Serializable {
         return distance;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setLine(Line line) {
+        this.line = line;
+    }
+
+    public void setUpStation(Station upStation) {
+        this.upStation = upStation;
+    }
+
+    public void setDownStation(Station downStation) {
+        this.downStation = downStation;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
     public void updateUpStation(Station station, int newDistance) {
         if (this.distance < newDistance) {
             throw new IllegalArgumentException("역과 역 사이의 거리보다 좁은 거리를 입력해주세요");
@@ -93,16 +116,5 @@ public class Section implements Serializable {
 
     public boolean existUpStation() {
         return this.upStation != null;
-    }
-
-    @Override
-    public String toString() {
-        return "Section{" +
-                "id=" + id +
-                ", line=" + line +
-                ", upStation=" + upStation.getId() + //care recursive call
-                ", downStation=" + downStation.getId() +
-                ", distance=" + distance +
-                '}';
     }
 }

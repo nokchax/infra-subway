@@ -1,5 +1,8 @@
 package nextstep.subway.line.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import nextstep.subway.common.BaseEntity;
 import nextstep.subway.station.domain.Station;
 
@@ -11,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Line extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +23,7 @@ public class Line extends BaseEntity implements Serializable {
     private String name;
     private String color;
 
-    @OneToMany(mappedBy = "line", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "line", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private List<Section> sections = new ArrayList<>();
 
     public Line() {
@@ -79,6 +83,9 @@ public class Line extends BaseEntity implements Serializable {
         }
 
         return orderBySection();
+    }
+
+    public void setStations(List<Station> stations) {
     }
 
     public Long getId() {
@@ -190,5 +197,21 @@ public class Line extends BaseEntity implements Serializable {
         return sections.stream()
             .filter(it -> it.equalUpStation(stationId))
             .findFirst();
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setSections(List<Section> sections) {
+        this.sections = sections;
     }
 }

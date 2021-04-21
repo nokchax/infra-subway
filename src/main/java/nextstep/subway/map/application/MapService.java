@@ -1,51 +1,25 @@
 package nextstep.subway.map.application;
 
 import nextstep.subway.line.application.LineService;
-import nextstep.subway.line.domain.Line;
-import nextstep.subway.map.domain.SubwayPath;
 import nextstep.subway.map.dto.PathResponse;
-import nextstep.subway.map.dto.PathResponseAssembler;
 import nextstep.subway.station.application.StationService;
-import nextstep.subway.station.domain.Station;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional
 public class MapService {
     private static final Logger log = LoggerFactory.getLogger(MapService.class);
-    private static final Logger fileLogger = LoggerFactory.getLogger("file");
-    private static final Logger jsonLogger = LoggerFactory.getLogger("json");
+    private final PathService pathService;
 
-    private LineService lineService;
-    private StationService stationService;
-    private PathService pathService;
-
-    public MapService(LineService lineService, StationService stationService, PathService pathService) {
-        this.lineService = lineService;
-        this.stationService = stationService;
+    public MapService(PathService pathService) {
         this.pathService = pathService;
     }
 
     public PathResponse findPath(Long source, Long target) {
         log.info("Find shortest path : from {} -> to {}", source, target);
-
-        List<Line> lines = lineService.findLines();
-        Station sourceStation = stationService.findById(source);
-        Station targetStation = stationService.findById(target);
-        try {
-            SubwayPath subwayPath = pathService.findPath(lines, sourceStation, targetStation);
-
-            fileLogger.info("Find shortest path result from {} -> to {}: {}", source, target, subwayPath);
-            jsonLogger.info("Find shortest path result from {} -> to {}: {}", source, target, subwayPath);
-            return PathResponseAssembler.assemble(subwayPath);
-        } catch (Exception e) {
-            fileLogger.error("Fail to find shortest path from [{}] -> to [{}]: {}", sourceStation, targetStation, e.getMessage());
-            throw e;
-        }
+        return pathService.findPath(source, target);
     }
 }
