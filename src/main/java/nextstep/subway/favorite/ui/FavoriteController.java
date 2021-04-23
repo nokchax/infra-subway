@@ -38,4 +38,11 @@ public class FavoriteController {
         favoriteService.deleteFavorite(loginMember, id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/favorites/pages/{pageId}")
+    public ResponseEntity<List<FavoriteResponse>> getPagedFavorites(@AuthenticationPrincipal LoginMember loginMember,
+                                                                    @PathVariable Long pageId) {
+        List<FavoriteResponse> favorites = favoriteService.findFavorites(loginMember, pageId);
+        return ResponseEntity.ok().body(favorites);
+    }
 }
