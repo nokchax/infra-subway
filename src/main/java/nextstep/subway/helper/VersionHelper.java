@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 @Component
 public class VersionHelper {
-    private static final String DEFAULT_DATE_TIME_FORMAT = "yyyyMMddHHmmss";
+    private static final String DEFAULT_DATE_TIME_FORMAT = "yyyyMMddHH";
     private String version;
 
     @PostConstruct
