@@ -2,9 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-app
+  namespace: my-app-ns
 
 spec:
-  replicas: 5
+  replicas: 10
   # 컨테이너의 라벨을 선택
   selector:
     matchLabels:
@@ -27,3 +28,13 @@ spec:
       containers:
         - name: subway
           image: nokchax/infra-subway:latest
+          resources:
+            requests:
+              # 0.25core
+              cpu: "400m"
+
+              # 500 MiB
+              memory: "1000Mi"
+            limits:
+              cpu: "400m"
+              memory: "1000Mi"

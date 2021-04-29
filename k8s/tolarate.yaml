@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tolerate
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      resources:
+        requests:
+          # 0.25core
+          cpu: "250m"
+
+          # 500 MiB
+          memory: "500Mi"
+        limits:
+          cpu: "250m"
+          memory: "500Mi"
+  tolerations:
+    - key: "project"
+      value: "A"
+      operator: "Equal"
+      effect: "NoSchedule"
