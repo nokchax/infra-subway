@@ -12,7 +12,7 @@ export let options = {
     },
 };
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'https://nokchax.kro.kr';
 const USERNAME = 'probitanima11@gmail.com';
 const PASSWORD = '11';
 
